@@ -8,16 +8,16 @@ function intializeApp(){
 	assignClickHandlers();
 }
 
-function stackDeck(cardValues){
-	for(var i = 0; i < cardValues.length; i++){
-		for(var j = 0; j < shuffledDeck.length; j++){
-			if(cardValues[i] === shuffledDeck[j]){
-				playersHand[i] = cardValues[i];
-			}
-		}
-	}
-}
-stackDeck(['A','3'])
+// function stackDeck(cardValues){
+// 	for(var i = 0; i < cardValues.length; i++){
+// 		for(var j = 0; j < shuffledDeck.length; j++){
+// 			if(cardValues[i] === shuffledDeck[j]){
+// 				playersHand[i] = cardValues[i];
+// 			}
+// 		}
+// 	}
+// }
+// stackDeck(['A','3'])
 function assignClickHandlers(){
 	$('.startGame').on('click', createCards);
 	$('.hit').on('click', hit);
@@ -100,7 +100,7 @@ function createCards(){
 		storePlayersHandValue = 12;
 	}
 	if(storePlayersHandValue === 21){
-		alert('blackjack');
+		alert('Yahtzee!!!');
 	}
 }
 
@@ -127,11 +127,12 @@ function hit(){
 			storePlayersHandValue += playersHand[i]
 		}
 	}
-
-	console.log(storePlayersHandValue, playersHand);
 	if(storePlayersHandValue > 21){
-		alert('you bust')
+		console.log('you bust')
+		alert('you bust');
 	}
+	console.log('dealer has: ', dealersHand[1], 'you have: ', storePlayersHandValue);
+	console.log(playersHand);
 }
 
 function resetPlayerHand(){
@@ -141,12 +142,17 @@ function resetPlayerHand(){
 	storeDealersHandValue = 0;
 	giveTwoCards();
 	console.log('there are ', shuffledDeck.length, ' cards in the deck')
-	console.log('dealer has: ', dealersHand[1]);
-	console.log(storePlayersHandValue, playersHand);
-	return
+	console.log('dealer has: ', dealersHand[1], 'you have: ', storePlayersHandValue);
+	console.log(playersHand);
+	if(storePlayersHandValue === 21){
+		alert('Yahtzee!!!');
+	}
 }
  
  function stand(){
+ 	if(storeDealersHandValue === 22){
+ 		storeDealersHandValue = 12;
+ 	}
  	while(storeDealersHandValue < 17){
  		for(var i = 0; i < dealersHand.length; i++){
  			if(storeDealersHandValue > 21){
@@ -155,7 +161,6 @@ function resetPlayerHand(){
  				}
  			}
  		}
-
  		dealersHand.push(shuffledDeck[0].value);
  		shuffledDeck.splice(0,1);
   		storeDealersHandValue = 0;
@@ -163,13 +168,16 @@ function resetPlayerHand(){
  			storeDealersHandValue += dealersHand[i]
  		}
  	}
- 	console.log('dealer has: ', storeDealersHandValue);
+ 	console.log('dealer has: ', dealersHand[1], 'you have: ', storePlayersHandValue);
  	if(storePlayersHandValue > storeDealersHandValue && storePlayersHandValue <= 21){
- 		alert('you win')
+ 		console.log('you win');
+ 		alert('you win');
  	} else if (storeDealersHandValue > 21){
- 		alert('dealer bust')
+ 		console.log('dealer bust');
+ 		alert('dealer bust');
  	} else {
- 		alert('dealer wins')
+ 		console.log('dealer wins');
+ 		alert('dealer wins');
  	}
  }
 
